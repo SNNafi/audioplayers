@@ -172,7 +172,7 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
     double position = GetArgument<double>("position", args, (double)(player->GetPosition()));
        // int64_t aposition;
      //   memcpy(&aposition, &position, sizeof(aposition));
-        player->SeekTo((int64_t>)(position));
+        player->SeekTo((int64_t)(position));
  result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("setSourceUrl") == 0) {
     auto url = GetArgument<std::string>("url", args, std::string());
