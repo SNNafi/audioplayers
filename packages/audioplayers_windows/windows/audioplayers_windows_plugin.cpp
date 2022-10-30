@@ -18,6 +18,7 @@
 #include <memory>
 #include <sstream>
 #include <stdlib.h>
+#include <inttypes.h>
 
 namespace {
 
@@ -165,7 +166,7 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("seek") == 0) {
     std::string position = GetArgument<std::string>("position", args, std::string());
-    int64_t value = atoll(position.c_str());
+    int64_t value = strtoimax(position.c_str(), NULL, 10);
     player->SeekTo(value);
 
 
