@@ -53,6 +53,7 @@ class MethodChannelAudioplayersPlatform extends AudioplayersPlatform
   @override
   Future<void> seek(String playerId, Duration position) {
     if (Platform.isWindows) {
+      print("'position - isWindows' ${position.inMilliseconds}");
       return _call(
         'seek',
         playerId,
