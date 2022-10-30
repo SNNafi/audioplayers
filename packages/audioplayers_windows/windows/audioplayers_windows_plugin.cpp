@@ -155,8 +155,8 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
     player->SeekTo(0);
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("seek") == 0) {
-    // auto position = GetArgument<int>("position", args, (int)(player->GetPosition() / 10000));
-    player->SeekTo(static_cast<int64_t>(GetArgument<int>("position", args, (int)(player->GetPosition()))));
+    auto position = GetArgument<long>("position", args, (long)(player->GetPosition()));
+    player->SeekTo(static_cast<int64_t>(position));
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("setSourceUrl") == 0) {
     auto url = GetArgument<std::string>("url", args, std::string());
