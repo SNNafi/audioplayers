@@ -20,15 +20,31 @@ flutter:
         default_package: audioplayers_windows
 
 dependencies:
-  audioplayers_android: ^1.1.1
-  audioplayers_darwin: ^1.0.3
-  audioplayers_linux: ^1.0.1
+  audioplayers_android:
+    git:
+      url: https://github.com/SNNafi/audioplayers.git
+      ref: develop
+      path: packages/audioplayers_android/
+  audioplayers_darwin:
+    git:
+      url: https://github.com/SNNafi/audioplayers.git
+      ref: develop
+      path: packages/audioplayers_darwin/
+  audioplayers_linux:
+    git:
+      url: https://github.com/SNNafi/audioplayers.git
+      ref: develop
+      path: packages/audioplayers_linux/
   audioplayers_platform_interface:
     git:
       url: https://github.com/SNNafi/audioplayers.git
       ref: develop
       path: packages/audioplayers_platform_interface/
-  audioplayers_web: ^2.0.1
+  audioplayers_web:
+    git:
+      url: https://github.com/SNNafi/audioplayers.git
+      ref: develop
+      path: packages/audioplayers_web/
   audioplayers_windows:
     git:
       url: https://github.com/SNNafi/audioplayers.git
