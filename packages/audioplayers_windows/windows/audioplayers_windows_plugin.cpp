@@ -36,6 +36,14 @@ T GetArgument(const std::string arg, const EncodableValue* args, T fallback) {
   return result;
 }
 
+const EncodableValue* ValueOrNull(const EncodableMap& map, const char* key) {
+  auto it = map.find(EncodableValue(key));
+  if (it == map.end()) {
+    return nullptr;
+  }
+  return &(it->second);
+}
+
 class AudioplayersWindowsPlugin : public Plugin {
  public:
   static void RegisterWithRegistrar(PluginRegistrarWindows *registrar);
@@ -157,8 +165,10 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
   } else if (method_call.method_name().compare("seek") == 0) {
    // auto position = GetArgument<double>("position", args, (double)(player->GetPosition()));
     // player->SeekTo(static_cast<int64_t>(position));
-    auto position = GetArgument<double>("position", args, ((player->GetPosition() / 10000.0)));
-    player->SeekTo(static_cast<int64_t>(position * 10000.0));
+    const auto* position = std::get_if<int64_t>(ValueOrNull(*args, "position"));
+    if (position != nullptr) {
+     player->SeekTo(static_cast<int64_t>(position));
+    }
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("setSourceUrl") == 0) {
     auto url = GetArgument<std::string>("url", args, std::string());
