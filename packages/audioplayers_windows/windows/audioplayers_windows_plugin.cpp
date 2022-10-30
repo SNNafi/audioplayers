@@ -166,7 +166,7 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("seek") == 0) {
     std::string position = GetArgument<std::string>("position", args, std::string());
-    int64_t value = stoull(position.c_str());
+    int64_t value = _strtoi64(position.c_str());
     player->SeekTo(value);
 
 
