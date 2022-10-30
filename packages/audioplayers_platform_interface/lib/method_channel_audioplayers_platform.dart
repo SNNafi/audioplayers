@@ -58,7 +58,7 @@ class MethodChannelAudioplayersPlatform extends AudioplayersPlatform
         'seek',
         playerId,
         <String, dynamic>{
-          'position': position.inMilliseconds.toString(),
+          'position': position.inMilliseconds.toDouble(),
         },
       );
     }
