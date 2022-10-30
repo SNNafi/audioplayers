@@ -169,7 +169,7 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
   } else if (method_call.method_name().compare("seek") == 0) {
     std::string position = GetArgument<std::string>("position", args, std::string());
     int64_t value;
-    stringstream ss;
+    std::stringstream ss;
     ss << position;
     ss >> value;
     player->SeekTo(value);
