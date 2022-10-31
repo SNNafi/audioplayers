@@ -189,13 +189,13 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
       result->Success(EncodableValue(0));
     }
   } else if (method_call.method_name().compare("getDuration") == 0) {
-    result->Success(EncodableValue(player->GetDuration() / 10000));
+    result->Success(EncodableValue(player->GetDuration()));
   } else if (method_call.method_name().compare("setVolume") == 0) {
     auto volume = GetArgument<double>("volume", args, 1.0);
     player->SetVolume(volume);
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("getCurrentPosition") == 0) {
-    result->Success(EncodableValue(player->GetPosition() / 10000));
+    result->Success(EncodableValue(player->GetPosition()));
   } else if (method_call.method_name().compare("setPlaybackRate") == 0) {
     auto playbackRate = GetArgument<double>("playbackRate", args, 1.0);
     player->SetPlaybackSpeed(playbackRate);
