@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 // TODO(gustl22): remove when upgrading min Flutter version to >=3.3.0
 // ignore: unnecessary_import
@@ -51,6 +52,16 @@ class MethodChannelAudioplayersPlatform extends AudioplayersPlatform
 
   @override
   Future<void> seek(String playerId, Duration position) {
+    if (Platform.isWindows) {
+      print("'position - isWindows' ${position.inMilliseconds}");
+      return _call(
+        'seek',
+        playerId,
+        <String, dynamic>{
+          'position': position.inMilliseconds.toDouble(),
+        },
+      );
+    }
     return _call(
       'seek',
       playerId,

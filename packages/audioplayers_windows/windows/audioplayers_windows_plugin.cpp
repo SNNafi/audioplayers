@@ -17,6 +17,10 @@
 #include <map>
 #include <memory>
 #include <sstream>
+#include <stdlib.h>
+#include <inttypes.h>
+#include <iostream>
+#include <sstream>
 
 namespace {
 
@@ -34,6 +38,14 @@ T GetArgument(const std::string arg, const EncodableValue* args, T fallback) {
     }
   }
   return result;
+}
+
+const EncodableValue* ValueOrNull(const EncodableMap& map, const char* key) {
+  auto it = map.find(EncodableValue(key));
+  if (it == map.end()) {
+    return nullptr;
+  }
+  return &(it->second);
 }
 
 class AudioplayersWindowsPlugin : public Plugin {
@@ -148,15 +160,17 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("stop") == 0) {
     player->Pause();
-    player->SeekTo(0);
+    player->SeekTo(0.0);
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("release") == 0) {
     player->Pause();
-    player->SeekTo(0);
+    player->SeekTo(0.0);
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("seek") == 0) {
-    // auto position = GetArgument<int>("position", args, (int)(player->GetPosition() / 10000));
-    player->SeekTo(static_cast<int64_t>(GetArgument<int>("position", args, (int)(player->GetPosition()))));
+    auto position = GetArgument<double>("position", args, (double)(player->GetPosition()));
+    // int64_t aposition = static_cast<int64_t>(position);
+    std::cout << "SEEK from CPP -> " << position << std::endl;
+    player->SeekTo(position);
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("setSourceUrl") == 0) {
     auto url = GetArgument<std::string>("url", args, std::string());
@@ -175,13 +189,13 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
       result->Success(EncodableValue(0));
     }
   } else if (method_call.method_name().compare("getDuration") == 0) {
-    result->Success(EncodableValue(player->GetDuration() / 10000));
+    result->Success(EncodableValue(player->GetDuration()));
   } else if (method_call.method_name().compare("setVolume") == 0) {
     auto volume = GetArgument<double>("volume", args, 1.0);
     player->SetVolume(volume);
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("getCurrentPosition") == 0) {
-    result->Success(EncodableValue(player->GetPosition() / 10000));
+    result->Success(EncodableValue(player->GetPosition()));
   } else if (method_call.method_name().compare("setPlaybackRate") == 0) {
     auto playbackRate = GetArgument<double>("playbackRate", args, 1.0);
     player->SetPlaybackSpeed(playbackRate);
