@@ -233,7 +233,7 @@ bool MediaEngineWrapper::GetLooping()
     return looping;
 }
 
-void MediaEngineWrapper::SeekTo(uint64_t timeStamp)
+void MediaEngineWrapper::SeekTo(double timeStamp)
 {
     RunSyncInMTA([&]()
     {
@@ -241,7 +241,7 @@ void MediaEngineWrapper::SeekTo(uint64_t timeStamp)
         if (m_mediaEngine == nullptr) {
             return;
         }
-        const double timestampInSeconds = ConvertHnsToSeconds(timeStamp);
+        const double timestampInSeconds = seconds / 1000.0;
         THROW_IF_FAILED(m_mediaEngine->SetCurrentTime(timestampInSeconds));
     });
 }

@@ -190,6 +190,6 @@ int64_t AudioPlayer::GetDuration() {
     return m_mediaEngineWrapper->GetDuration();
 }
 
-void AudioPlayer::SeekTo(int64_t seek) {
+void AudioPlayer::SeekTo(double seek) {
     m_mediaEngineWrapper->SeekTo(seek);
 }
