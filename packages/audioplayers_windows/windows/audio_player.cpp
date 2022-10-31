@@ -103,7 +103,7 @@ void AudioPlayer::OnTimeUpdate() {
             std::make_unique<flutter::EncodableValue>(
                 flutter::EncodableMap({
                     {flutter::EncodableValue("playerId"), flutter::EncodableValue(_playerId)},
-                    {flutter::EncodableValue("value"), flutter::EncodableValue((int64_t)m_mediaEngineWrapper->GetMediaTime() / 10000)}
+                    {flutter::EncodableValue("value"), flutter::EncodableValue((int64_t)m_mediaEngineWrapper->GetMediaTime())}
                 })));
     }
 }
@@ -114,7 +114,7 @@ void AudioPlayer::OnDurationUpdate() {
             std::make_unique<flutter::EncodableValue>(
                 flutter::EncodableMap({
                     {flutter::EncodableValue("playerId"), flutter::EncodableValue(_playerId)},
-                    {flutter::EncodableValue("value"), flutter::EncodableValue((int64_t)m_mediaEngineWrapper->GetDuration() / 10000)}
+                    {flutter::EncodableValue("value"), flutter::EncodableValue((int64_t)m_mediaEngineWrapper->GetDuration())}
                 })));
     }
 }
