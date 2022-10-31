@@ -168,7 +168,7 @@ void AudioplayersWindowsPlugin::HandleMethodCall(
     result->Success(EncodableValue(1));
   } else if (method_call.method_name().compare("seek") == 0) {
     auto position = GetArgument<double>("position", args, (double)(player->GetPosition() / 10000.0));
-    int64_t aposition = static_cast<int64_t>(position * 10000.0);
+    int64_t aposition = static_cast<int64_t>(position);
     std::cout << position << "<- SEEK ->" << aposition << std::endl;
     player->SeekTo(aposition);
     result->Success(EncodableValue(1));
