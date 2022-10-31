@@ -241,7 +241,7 @@ void MediaEngineWrapper::SeekTo(double timeStamp)
         if (m_mediaEngine == nullptr) {
             return;
         }
-        const double timestampInSeconds = seconds / 1000.0;
+        const double timestampInSeconds = timeStamp / 1000.0;
         THROW_IF_FAILED(m_mediaEngine->SetCurrentTime(timestampInSeconds));
     });
 }
